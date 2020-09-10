@@ -2,6 +2,7 @@ package com.testCaseManagement.tcm.controller;
 
 import com.testCaseManagement.tcm.entity.User;
 import com.testCaseManagement.tcm.mybeans.R;
+import com.testCaseManagement.tcm.service.TokenService;
 import com.testCaseManagement.tcm.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,10 +14,14 @@ public class LoginController {
     @Autowired
     UserService userService;
 
+    @Autowired
+    TokenService tokenService;
+
     @PostMapping(value = "/login")
     public R login(@RequestBody User user){
         if (userService.Login((user))) {
-            return R.ok();
+            String token = tokenService.getToken(user);
+            return R.ok().put("token", token);
         }
         else {
             return R.error("error");

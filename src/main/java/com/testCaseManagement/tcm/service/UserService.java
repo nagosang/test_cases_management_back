@@ -3,6 +3,7 @@ package com.testCaseManagement.tcm.service;
 import com.testCaseManagement.tcm.entity.User;
 
 public interface UserService {
-    Boolean Login(User user);
+    boolean Login(User user);
     String GetRole(String userName);
+    User findByUserId(String userId);
 }

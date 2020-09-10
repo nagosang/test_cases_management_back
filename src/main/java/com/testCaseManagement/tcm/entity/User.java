@@ -23,4 +23,10 @@ public class User {
 
     @TableField(value = "role")
     private String role;
+
+    @TableField(value = "tokenKey")
+    private Long tokenKey;
+
+    @TableField(value = "head")
+    private String head;
 }
