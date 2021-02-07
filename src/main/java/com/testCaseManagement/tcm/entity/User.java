@@ -29,4 +29,7 @@ public class User {
 
     @TableField(value = "head")
     private String head;
+
+    @TableField(value = "belongGroupId")
+    private  String belongGroupId;
 }

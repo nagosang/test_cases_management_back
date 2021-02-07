@@ -4,5 +4,6 @@ import com.testCaseManagement.tcm.entity.User;
 
 public interface TokenService {
     String getToken(User user);
-    boolean checkTekonLimitTime();
+//    boolean checkTokenLimitTime();
+    String getUserIdByToken(String Token);
 }
