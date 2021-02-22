@@ -3,12 +3,15 @@ package com.testCaseManagement.tcm.service.impl;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.testCaseManagement.tcm.entity.Group;
+import com.testCaseManagement.tcm.entity.User;
 import com.testCaseManagement.tcm.mapper.GroupMapper;
+import com.testCaseManagement.tcm.mapper.UserMapper;
 import com.testCaseManagement.tcm.service.GroupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class GroupServiceImpl implements GroupService {
@@ -34,4 +37,5 @@ public class GroupServiceImpl implements GroupService {
             throw e;
         }
     }
+
 }

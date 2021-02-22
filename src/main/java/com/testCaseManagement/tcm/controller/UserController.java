@@ -45,4 +45,15 @@ public class UserController {
         }
 
     }
+
+    @UserLoginToken
+    @GetMapping(value = "/getGroupMember")
+    public R getGroupMember(@Param("groupId") String groupId){
+        try {
+            return R.ok().put("data", userService.getGroupMember(groupId));
+        }
+        catch (Exception e){
+            return R.error();
+        }
+    }
 }

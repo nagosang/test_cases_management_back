@@ -8,6 +8,8 @@ import com.testCaseManagement.tcm.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UserServiceImpl implements UserService {
     @Autowired
@@ -86,6 +88,19 @@ public class UserServiceImpl implements UserService {
             }
         }
         catch (Exception e) {
+            e.printStackTrace();
+            throw e;
+        }
+    }
+
+    @Override
+    public List getGroupMember(String groupId){
+        try {
+            QueryWrapper<User> userQueryWrapper = new QueryWrapper<>();
+            userQueryWrapper.eq("belongGroupId", groupId);
+            return userMapper.selectList(userQueryWrapper);
+        }
+        catch (Exception e){
             e.printStackTrace();
             throw e;
         }
