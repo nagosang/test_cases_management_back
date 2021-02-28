@@ -6,4 +6,5 @@ import com.testCaseManagement.tcm.entity.Project;
 public interface ProjectService {
     JSONObject[] getProjectListByGroup(String GroupId);
     JSONObject[] getProjectListByUser(String UserId);
+    int getProjectNumberByGroup(String GroupId);
 }

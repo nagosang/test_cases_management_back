@@ -86,4 +86,16 @@ public class ProjectServiceImpl implements ProjectService {
             throw e;
         }
     }
+
+    @Override
+    public int getProjectNumberByGroup(String GroupId){
+        try {
+            QueryWrapper<Project> projectQueryWrapper = new QueryWrapper<>();
+            projectQueryWrapper.eq("manageGroupId", GroupId);
+            return projectMapper.selectCount(projectQueryWrapper);
+        }
+        catch (Exception e){
+            throw e;
+        }
+    }
 }

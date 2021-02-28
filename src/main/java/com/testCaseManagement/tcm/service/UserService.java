@@ -11,4 +11,5 @@ public interface UserService {
     User findByUserId(String userId);
     JSONObject getInfo(String userId);
     List getGroupMember(String groupId);
+    JSONObject[] getNoGroupUser();
 }

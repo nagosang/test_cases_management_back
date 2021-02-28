@@ -8,6 +8,7 @@ import com.testCaseManagement.tcm.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -84,6 +85,7 @@ public class UserServiceImpl implements UserService {
                 userInfo.put("userId", user.getUserId());
                 userInfo.put("userName", user.getUserName());
                 userInfo.put("role", user.getRole());
+                userInfo.put("belongGroupId",user.getBelongGroupId());
                 return userInfo;
             }
         }
@@ -105,4 +107,26 @@ public class UserServiceImpl implements UserService {
             throw e;
         }
     }
+
+    @Override
+    public JSONObject[] getNoGroupUser(){
+        try {
+            QueryWrapper<User> userQueryWrapper = new QueryWrapper<>();
+            userQueryWrapper.eq("belongGroupId","");
+            ArrayList<User> userArrayList = new ArrayList<>(userMapper.selectList(userQueryWrapper));
+            JSONObject[] reObj= new JSONObject[userArrayList.size()];
+            for (int i=0;i<userArrayList.size();i++){
+                JSONObject temp = new JSONObject();
+                temp.put("value", userArrayList.get(i).getUserName());
+                temp.put("userId",userArrayList.get(i).getUserId());
+                reObj[i] = temp;
+            }
+
+            return reObj;
+        }
+        catch (Exception e){
+            throw e;
+        }
+    }
+
 }

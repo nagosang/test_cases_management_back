@@ -17,4 +17,7 @@ public class Group {
 
     @TableField(value = "groupName")
     private String groupName;
+
+    @TableField(value = "leaderId")
+    private String leaderId;
 }

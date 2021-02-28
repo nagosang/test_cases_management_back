@@ -56,4 +56,15 @@ public class UserController {
             return R.error();
         }
     }
+
+    @UserLoginToken
+    @GetMapping(value = "/getNoGroupUser")
+    public R getNoGroupUser(){
+        try {
+            return R.ok().put("data", userService.getNoGroupUser());
+        }
+        catch (Exception e){
+            return R.error(e.toString());
+        }
+    }
 }

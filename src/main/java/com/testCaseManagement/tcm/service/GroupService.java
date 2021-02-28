@@ -7,4 +7,8 @@ import java.util.List;
 
 public interface GroupService {
     JSONObject[] getGroupListByAdmin();
+    Boolean createGroup(String groupName, String leaderId);
+    Boolean deleteGroup(String GroupId);
+    Boolean groupAddMember(String memberId, String groupId);
+    Boolean groupChangeLeader(String newLeaderId, String groupId);
 }
