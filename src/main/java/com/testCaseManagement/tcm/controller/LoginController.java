@@ -21,7 +21,7 @@ public class LoginController {
     public R login(@RequestBody User user){
         if (userService.Login((user))) {
             String token = tokenService.getToken(user);
-            String role = userService.GetRole(user.getUserId());
+            String role = userService.getRole(user.getUserId());
             return R.ok().put("token", token).put("role", role);
         }
         else {

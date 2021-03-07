@@ -10,5 +10,7 @@ public interface GroupService {
     Boolean createGroup(String groupName, String leaderId);
     Boolean deleteGroup(String GroupId);
     Boolean groupAddMember(String memberId, String groupId);
-    Boolean groupChangeLeader(String newLeaderId, String groupId);
+    Boolean groupChangeLeader(String newLeaderId, String groupId) throws Exception;
+    Boolean removeMember(String memberId) throws Exception;
+    JSONObject[] getGroupListForChange(String userId) throws Exception;
 }

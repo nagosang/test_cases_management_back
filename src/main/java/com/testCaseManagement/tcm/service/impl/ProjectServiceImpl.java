@@ -2,6 +2,7 @@ package com.testCaseManagement.tcm.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.testCaseManagement.tcm.entity.Project;
 import com.testCaseManagement.tcm.entity.User;
 import com.testCaseManagement.tcm.mapper.ProjectMapper;
@@ -11,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 @Service
 public class ProjectServiceImpl implements ProjectService {
@@ -93,6 +96,37 @@ public class ProjectServiceImpl implements ProjectService {
             QueryWrapper<Project> projectQueryWrapper = new QueryWrapper<>();
             projectQueryWrapper.eq("manageGroupId", GroupId);
             return projectMapper.selectCount(projectQueryWrapper);
+        }
+        catch (Exception e){
+            throw e;
+        }
+    }
+
+    @Override
+    public HashMap<String, Object> getProjectInfo(String projectId){
+        try {
+            QueryWrapper<Project> projectQueryWrapper = new QueryWrapper<>();
+            projectQueryWrapper.eq("projectId", projectId);
+            return projectMapper.selectProjectInfo(projectId);
+        }
+        catch (Exception e) {
+            throw e;
+        }
+    }
+
+    @Override
+    public Boolean updateProjectInfo(HashMap<String, String> projectInfo) throws Exception{
+        try {
+            Project newProjectInfo = new Project();
+            newProjectInfo.setProjectId(projectInfo.get("projectId"));
+            newProjectInfo.setProjectName(projectInfo.get("modifyProjectName"));
+            newProjectInfo.setManageGroupId(projectInfo.get("modifyManageGroupId"));
+            newProjectInfo.setProjectAddress(projectInfo.get("modifyProjectAddress"));
+            newProjectInfo.setDatabaseAddress(projectInfo.get("modifyDataBaseAddress"));
+            newProjectInfo.setProjectInfo(projectInfo.get("modifyProjectInfo"));
+            UpdateWrapper<Project> projectUpdateWrapper = new UpdateWrapper<>();
+            projectUpdateWrapper.eq("projectId", newProjectInfo.getProjectId());
+            return projectMapper.update(newProjectInfo,projectUpdateWrapper)>0;
         }
         catch (Exception e){
             throw e;

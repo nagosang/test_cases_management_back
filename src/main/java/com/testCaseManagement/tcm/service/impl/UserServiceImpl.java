@@ -38,7 +38,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String GetRole(String userId){
+    public String getRole(String userId){
         try {
             QueryWrapper<User> userQueryWrapper = new QueryWrapper<>();
             userQueryWrapper.eq("userId", userId);

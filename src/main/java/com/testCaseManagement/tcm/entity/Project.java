@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableField;
 import lombok.Data;
+import lombok.Value;
 
 @Data
 @TableName("project_info")
@@ -18,6 +19,16 @@ public class Project {
     @TableField(value = "projectName")
     private  String projectName;
 
+    @TableField(value = "projectInfo")
+    private String projectInfo;
+
     @TableField(value = "manageGroupId")
     private  String manageGroupId;
+
+    @TableField(value = "projectAddress")
+    private String projectAddress;
+
+    @TableField(value = "databaseAddress")
+    private String databaseAddress;
+
 }

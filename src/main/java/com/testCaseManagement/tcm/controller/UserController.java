@@ -21,7 +21,7 @@ public class UserController {
 
     @GetMapping(value = "/getRole")
     public R getRole(@Param("userId") String userId){
-        String Role = userService.GetRole(userId);
+        String Role = userService.getRole(userId);
         if (Role.equals("0")){
             return R.error("error");
         }

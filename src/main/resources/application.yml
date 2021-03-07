@@ -16,3 +16,4 @@ spring:
 
 appConfig:
   serverTimeZone: GMT+8
+
