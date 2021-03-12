@@ -12,4 +12,5 @@ public interface ProjectService {
     int getProjectNumberByGroup(String GroupId);
     HashMap<String, Object> getProjectInfo(String projectId);
     Boolean updateProjectInfo(HashMap<String, String> newProject) throws Exception;
+    String getGroupIdByProjectId(String projectId);
 }

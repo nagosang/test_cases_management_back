@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 @Service
 public class InterfaceServiceImpl implements InterfaceService {
@@ -61,12 +62,15 @@ public class InterfaceServiceImpl implements InterfaceService {
     public JSONObject getInterfaceInfo(int interfaceId) {
         try {
             Interface tempInterface = interfaceMapper.selectById(interfaceId);
+            JSONObject data = new JSONObject();
+            data.put("interfaceId", tempInterface.getId());
+            data.put("projectId", tempInterface.getProjectId());
+            data.put("interfaceName", tempInterface.getInterfaceName());
+            data.put("interfaceMethod", tempInterface.getInterfaceMethod() == null ? "" :tempInterface.getInterfaceMethod());
+            data.put("interfaceInfo", tempInterface.getInterfaceInfo() == null ? "" :tempInterface.getInterfaceInfo());
+            data.put("interfaceRoute", tempInterface.getInterfaceRoute() == null ? "" :tempInterface.getInterfaceRoute());
             JSONObject reObj = new JSONObject();
-            reObj.put("interfaceName", tempInterface.getInterfaceName());
-            reObj.put("interfaceMethod", tempInterface.getInterfaceMethod() == null ? "" :tempInterface.getInterfaceMethod());
-            reObj.put("interfaceInfo", tempInterface.getInterfaceInfo() == null ? "" :tempInterface.getInterfaceInfo());
-            reObj.put("interfaceRoute", tempInterface.getInterfaceRoute() == null ? "" :tempInterface.getInterfaceRoute());
-
+            reObj.put("data", data);
             QueryWrapper<Parameter> parameterQueryWrapper = new QueryWrapper<>();
             parameterQueryWrapper.eq("interfaceId", interfaceId);
             ArrayList<Parameter> parameterArrayList = new ArrayList<>(parameterMapper.selectList(parameterQueryWrapper));
@@ -81,6 +85,65 @@ public class InterfaceServiceImpl implements InterfaceService {
             }
         }
         catch (Exception e){
+            throw e;
+        }
+    }
+
+    @Override
+    public Boolean updateInterfaceInfo(HashMap<String, String> newInterfaceInfo) {
+        try {
+            Interface newInterface = interfaceMapper.selectById(newInterfaceInfo.get("interfaceId"));
+            newInterface.setInterfaceName(newInterfaceInfo.get("modifyInterfaceName"));
+            newInterface.setInterfaceMethod(newInterfaceInfo.get("modifyInterfaceMethod"));
+            newInterface.setInterfaceRoute(newInterfaceInfo.get("modifyInterfaceRoute"));
+            newInterface.setInterfaceInfo(newInterfaceInfo.get("modifyInterfaceInfo"));
+            return interfaceMapper.updateById(newInterface)>0;
+        }
+        catch (Exception e) {
+            throw e;
+        }
+    }
+
+    @Override
+    public Boolean addInterface(HashMap<String, String> newInterfaceInfo){
+        try {
+            Interface newInterface = new Interface();
+            newInterface.setInterfaceName(newInterfaceInfo.get("interfaceName"));
+            newInterface.setProjectId(newInterfaceInfo.get("projectId"));
+            newInterface.setBelong(Integer.parseInt(newInterfaceInfo.get("belongId")));
+            if (newInterfaceInfo.get("isInterface").equals("true")) {
+                newInterface.setIsInterface(1);
+                newInterface.setInterfaceMethod(newInterfaceInfo.get("interfaceMethod"));
+                newInterface.setInterfaceRoute(newInterfaceInfo.get("interfaceRoute"));
+                newInterface.setInterfaceInfo(newInterfaceInfo.get("interfaceInfo"));
+            }
+            else {
+                newInterface.setIsInterface(0);
+            }
+            return interfaceMapper.insert(newInterface)>0;
+        }catch (Exception e){
+            e.printStackTrace();
+            throw e;
+        }
+    }
+
+    @Override
+    public Boolean deleteInterface(Integer interfaceId) {
+        try{
+            return interfaceMapper.deleteById(interfaceId)>0;
+        }
+        catch (Exception e){
+            throw e;
+        }
+    }
+
+    @Override
+    public String getManageGroupIdByInterfaceId(Integer interfaceId) {
+        try {
+            return interfaceMapper.selectManageGroupIdByInterfaceId(interfaceId);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
             throw e;
         }
     }
