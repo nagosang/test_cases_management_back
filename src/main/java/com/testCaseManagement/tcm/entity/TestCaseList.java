@@ -15,9 +15,6 @@ public class TestCaseList {
     @TableField(value = "projectId")
     private String projectId;
 
-    @TableField(value = "testCaseId")
-    private String testCaseId;
-
     @TableField(value = "testCaseName")
     private String testCaseName;
 
@@ -29,4 +26,13 @@ public class TestCaseList {
 
     @TableField(value = "isTestCase")
     private int isTestCase;
+
+    @TableField(value = "createUserId")
+    private String createUserId;
+
+    @TableField(value = "lastModifyUserId")
+    private String lastModifyUserId;
+
+    @TableField(value = "lastModifyTime")
+    private String lastModifyTime;
 }
