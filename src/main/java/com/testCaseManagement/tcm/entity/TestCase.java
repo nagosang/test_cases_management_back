@@ -15,9 +15,6 @@ public class TestCase {
     @TableField(value = "testCaseId")
     private int testCaseId;
 
-    @TableField(value = "interfaceId")
-    private int interfaceId;
-
     @TableField(value = "stepNo")
     private int stepNo;
 
