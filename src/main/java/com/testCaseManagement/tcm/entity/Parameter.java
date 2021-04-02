@@ -23,4 +23,7 @@ public class Parameter {
 
     @TableField(value = "interfaceId")
     private int interfaceId;
+
+    @TableField(value = "type")
+    private int type;
 }

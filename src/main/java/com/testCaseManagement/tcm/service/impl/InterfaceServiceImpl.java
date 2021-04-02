@@ -71,18 +71,20 @@ public class InterfaceServiceImpl implements InterfaceService {
             data.put("interfaceRoute", tempInterface.getInterfaceRoute() == null ? "" :tempInterface.getInterfaceRoute());
             JSONObject reObj = new JSONObject();
             reObj.put("data", data);
-            QueryWrapper<Parameter> parameterQueryWrapper = new QueryWrapper<>();
-            parameterQueryWrapper.eq("interfaceId", interfaceId);
-            ArrayList<Parameter> parameterArrayList = new ArrayList<>(parameterMapper.selectList(parameterQueryWrapper));
-            if (parameterArrayList.size() == 0){
-                reObj.put("count", 0);
-                return reObj;
-            }
-            else {
-                reObj.put("count", parameterArrayList.size());
-                reObj.put("paramData", parameterArrayList);
-                return reObj;
-            }
+
+            QueryWrapper<Parameter> parameterQueryWrapper1 = new QueryWrapper<>();
+            parameterQueryWrapper1.eq("interfaceId", interfaceId).eq("type", 1);
+            reObj.put("paramData", parameterMapper.selectList(parameterQueryWrapper1));
+
+            QueryWrapper<Parameter> parameterQueryWrapper2 = new QueryWrapper<>();
+            parameterQueryWrapper2.eq("interfaceId", interfaceId).eq("type", 2);
+            reObj.put("headerData", parameterMapper.selectList(parameterQueryWrapper2));
+
+            QueryWrapper<Parameter> parameterQueryWrapper3 = new QueryWrapper<>();
+            parameterQueryWrapper3.eq("interfaceId", interfaceId).eq("type", 3);
+            reObj.put("cookieData", parameterMapper.selectList(parameterQueryWrapper3));
+
+           return reObj;
         }
         catch (Exception e){
             throw e;

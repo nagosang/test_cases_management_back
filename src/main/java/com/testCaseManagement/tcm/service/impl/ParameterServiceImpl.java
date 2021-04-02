@@ -4,6 +4,7 @@ import com.testCaseManagement.tcm.entity.Parameter;
 import com.testCaseManagement.tcm.mapper.ParameterMapper;
 import com.testCaseManagement.tcm.service.ParameterService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.relational.core.sql.In;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -21,6 +22,7 @@ public class ParameterServiceImpl implements ParameterService {
             parameter.setParameterType(newParameter.get("parameterType"));
             parameter.setExample(newParameter.get("example"));
             parameter.setInterfaceId(interfaceId);
+            parameter.setType(Integer.parseInt(newParameter.get("type")));
 
             return parameterMapper.insert(parameter)>0;
         }
@@ -50,6 +52,7 @@ public class ParameterServiceImpl implements ParameterService {
             parameter.setParameterType(newParameter.get("modifyParameterType"));
             parameter.setExample(newParameter.get("modifyExample"));
             parameter.setInterfaceId(interfaceId);
+            parameter.setType(Integer.parseInt(newParameter.get("type")));
             return parameterMapper.updateById(parameter) > 0;
         }
         catch (Exception e){
