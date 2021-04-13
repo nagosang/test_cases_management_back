@@ -32,7 +32,7 @@ public class TestController {
     public R test2(HttpServletRequest httpServletRequest, @RequestParam HashMap<String, String> bodyData){
         try {
             String token = httpServletRequest.getHeader("token");// 从 http 请求头中取出 token
-            System.out.println(token);
+            System.out.println("token"+token);
             testService.test2();
             return R.ok("success").put("bodyData", bodyData);
         }

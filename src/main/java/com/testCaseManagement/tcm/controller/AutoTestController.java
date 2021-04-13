@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 @RestController
@@ -30,15 +31,35 @@ public class AutoTestController {
 
     @UserLoginToken
     @PostMapping(value = "/autoTest")
-    public R autoTes(HttpServletRequest httpServletRequest, @RequestBody HashMap<String, JSONObject[]> data, @Param("method") String method, @Param("interfaceId") Integer interfaceId){
+    public R autoTest(HttpServletRequest httpServletRequest, @RequestBody HashMap<String, ArrayList<JSONObject>> data, @Param("method") String method, @Param("interfaceId") Integer interfaceId){
         try {
             String token = httpServletRequest.getHeader("token");// 从 http 请求头中取出 token
             String userId = tokenService.getUserIdByToken(token);
             JSONObject currentUser = userService.getInfo(userId);
             String role = currentUser.get("role").toString();
             if (role.contains("5")){
-                System.out.println(data);
                 return R.ok().put("data", autoTestService.autoTest(data, method, userId, interfaceId));
+            }
+            else{
+                return R.error("您不是测试人员");
+            }
+        }
+        catch (Exception e){
+            return R.error(e.toString());
+        }
+    }
+
+    @UserLoginToken
+    @PostMapping(value = "/autoTestByTimes")
+    public R autoTestByTimes(HttpServletRequest httpServletRequest, @RequestBody HashMap<String, ArrayList<JSONObject>> data, @Param("method") String method, @Param("interfaceId") Integer interfaceId){
+        try {
+            String token = httpServletRequest.getHeader("token");// 从 http 请求头中取出 token
+            String userId = tokenService.getUserIdByToken(token);
+            JSONObject currentUser = userService.getInfo(userId);
+            String role = currentUser.get("role").toString();
+            if (role.contains("5")){
+                autoTestService.autoTestByTimes(data, method, userId, interfaceId);
+                return R.ok();
             }
             else{
                 return R.error("您不是测试人员");

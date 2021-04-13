@@ -8,6 +8,6 @@ import java.util.HashMap;
 import java.util.List;
 
 public interface AutoTestResultsMapper extends BaseMapper<AutoTestResults> {
-    @Select("SELECT * FROM `auto_test_results` WHERE auto_test_results.interfaceId = #{interfaceId} LIMIT #{pageNumber},10")
+    @Select("SELECT * FROM `auto_test_results` WHERE auto_test_results.interfaceId = #{interfaceId} ORDER BY auto_test_results.id DESC LIMIT #{pageNumber},10")
     List<HashMap<String, Object>> queryTestResultsByPage(int interfaceId, int pageNumber);
 }
